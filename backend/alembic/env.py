@@ -23,8 +23,10 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from src.settings.config import settings
-from src.domain_model.models.base import Base
+from settings.config import settings
+from domain_model.models.base import Base
+# Import all models so they are registered with Base.metadata
+from domain_model.models import Transaction
 
 target_metadata = Base.metadata
 
@@ -65,12 +67,12 @@ def run_migrations_online() -> None:
     In this scenario we need to create an Engine
     and associate a connection with the context.
 
+    """
     # Convert asyncpg URL to psycopg2 for sync migrations
     url = settings.DATABASE_URL.replace("postgresql+asyncpg", "postgresql")
     
     connectable = engine_from_config(
-        {"sqlalchemy.url": url}
-        config.get_section(config.config_ini_section, {}),
+        {"sqlalchemy.url": url},
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )

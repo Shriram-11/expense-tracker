@@ -11,11 +11,11 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = "postgres"
     POSTGRES_PASSWORD: str = "postgres"
     POSTGRES_DB: str = "expense_db"
-    POSTGRES_HOST: str = "db"
+    POSTGRES_HOST: str = "localhost"
     POSTGRES_PORT: int = 5432
 
     # SQLAlchemy database URL
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@db:5432/expense_db"
+    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/expense_db"
 
     # App settings
     APP_ENV: str = "development"
