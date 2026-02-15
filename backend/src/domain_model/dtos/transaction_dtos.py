@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, Union
+from typing import Optional, Union, List
 from datetime import datetime, date
 from decimal import Decimal
 from src.utils.constants import TransactionType, TransactionCategory
@@ -33,3 +33,36 @@ class TransactionResponseDto(TransactionBaseDto):
     model_config = {
         "from_attributes": True
     }
+
+
+class MonthlySummaryDto(BaseModel):
+    total_expense: Decimal
+    total_income: Decimal
+    net_savings: Decimal
+
+
+class WeeklySummaryDto(BaseModel):
+    week_start: date
+    week_end: date
+    total_expense: Decimal
+    total_income: Decimal
+    net_savings: Decimal
+
+
+class CategoryBreakdownItemDto(BaseModel):
+    category: TransactionCategory
+    total: Decimal
+
+
+class CategoryBreakdownDto(BaseModel):
+    year: int
+    month: int
+    total_expense: Decimal
+    items: List[CategoryBreakdownItemDto]
+
+
+class ProjectionSummaryDto(BaseModel):
+    spent_so_far: Decimal
+    projected_month_end: Decimal
+    days_passed: int
+    total_days: int

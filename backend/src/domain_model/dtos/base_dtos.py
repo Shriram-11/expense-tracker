@@ -1,24 +1,21 @@
-from dataclasses import dataclass
 from typing import Generic, TypeVar, Optional, List
+
+from pydantic import BaseModel
 
 T = TypeVar('T')
 
 
-@dataclass
-class ApiResponseDto(Generic[T]):
-    """
-    Generic API Response DTO that can wrap any data type.
-    """
-    data: T
+class ApiResponseDto(BaseModel, Generic[T]):
+    """Generic API response wrapper."""
+
+    data: Optional[T] = None
     success: bool
     message: Optional[str] = None
 
 
-@dataclass
-class PaginatedResponseDto(Generic[T]):
-    """
-    Generic Paginated Response DTO that wraps a list of items with pagination metadata.
-    """
+class PaginatedResponseDto(BaseModel, Generic[T]):
+    """Generic paginated payload."""
+
     data: List[T]
     total: int
     page_no: int

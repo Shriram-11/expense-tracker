@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Numeric, String, Date, Enum as SQLEnum
+from sqlalchemy import Column, Integer, Numeric, String, Date, Boolean, Enum as SQLEnum
 from datetime import date
 from src.domain_model.models.base import BaseModel
 from src.utils.constants import TransactionType, TransactionCategory
@@ -16,6 +16,7 @@ class Transaction(BaseModel):
     description = Column(String(255), nullable=True)
     transaction_date = Column(
         Date, default=date.today, nullable=False)
+    is_recurring_generated = Column(Boolean, default=False, nullable=False)
 
     def __repr__(self):
         return (

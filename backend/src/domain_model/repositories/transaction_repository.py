@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.domain_model.repositories.base_repository import BaseRepository
 from src.domain_model.models.transaction import Transaction
+from src.utils.constants import TransactionType
 
 
 class TransactionRepository(BaseRepository[Transaction]):
@@ -24,7 +25,7 @@ class TransactionRepository(BaseRepository[Transaction]):
         end_date: Optional[date] = None,
         year: Optional[int] = None,
         month: Optional[int] = None,
-        txn_type: Optional[str] = None,
+        txn_type: Optional[TransactionType] = None,
         category: Optional[str] = None,
         skip: int = 0,
         limit: int = 30
@@ -71,7 +72,7 @@ class TransactionRepository(BaseRepository[Transaction]):
         end_date: Optional[date] = None,
         year: Optional[int] = None,
         month: Optional[int] = None,
-        txn_type: Optional[str] = None,
+        txn_type: Optional[TransactionType] = None,
         category: Optional[str] = None
     ) -> int:
 
@@ -111,7 +112,7 @@ class TransactionRepository(BaseRepository[Transaction]):
         session: AsyncSession,
         start_date: date,
         end_date: date,
-        txn_type: Optional[str] = None
+        txn_type: Optional[TransactionType] = None
     ) -> float:
 
         filters = [
@@ -134,7 +135,7 @@ class TransactionRepository(BaseRepository[Transaction]):
         field: Any,
         start_date: date,
         end_date: date,
-        txn_type: Optional[str] = None
+        txn_type: Optional[TransactionType] = None
     ):
 
         filters = [
