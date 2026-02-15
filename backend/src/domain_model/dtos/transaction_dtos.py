@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 from decimal import Decimal
-from utils.constants import TransactionType, TransactionCategory
+from src.utils.constants import TransactionType, TransactionCategory
 
 
 class TransactionBaseDto(BaseModel):

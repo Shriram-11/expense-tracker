@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-from settings.config import settings
+from src.settings.config import settings
 
+from src.controllers.transaction_controller import router as transaction_router
 # Create FastAPI application instance
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="A simple expense tracker API",
     version="1.0.0",
 )
+
+# Include API routers
+app.include_router(transaction_router)
 
 
 @app.get("/health", tags=["Health"])

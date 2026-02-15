@@ -4,7 +4,7 @@ from typing import List, Optional, Any
 from sqlalchemy import select, func, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .base_repository import BaseRepository
+from src.domain_model.repositories.base_repository import BaseRepository
 from src.domain_model.models.transaction import Transaction
 
 
@@ -38,8 +38,10 @@ class TransactionRepository(BaseRepository[Transaction]):
             )
 
         if year and month:
-            filters.append(func.extract("year", Transaction.transaction_date) == year)
-            filters.append(func.extract("month", Transaction.transaction_date) == month)
+            filters.append(func.extract(
+                "year", Transaction.transaction_date) == year)
+            filters.append(func.extract(
+                "month", Transaction.transaction_date) == month)
 
         if txn_type:
             filters.append(Transaction.type == txn_type)
@@ -81,8 +83,10 @@ class TransactionRepository(BaseRepository[Transaction]):
             )
 
         if year and month:
-            filters.append(func.extract("year", Transaction.transaction_date) == year)
-            filters.append(func.extract("month", Transaction.transaction_date) == month)
+            filters.append(func.extract(
+                "year", Transaction.transaction_date) == year)
+            filters.append(func.extract(
+                "month", Transaction.transaction_date) == month)
 
         if txn_type:
             filters.append(Transaction.type == txn_type)

@@ -16,7 +16,6 @@ def get_transaction_service(
     return TransactionService(repo)
 
 
-def get_db_session(
-    session: AsyncSession = Depends(get_async_session)
-):
-    return session
+async def get_db_session():
+    async for session in get_async_session():
+        yield session

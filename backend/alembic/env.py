@@ -1,3 +1,6 @@
+from src.domain_model.models.transaction import Transaction
+from src.domain_model.models.base import Base
+from src.settings.config import settings
 from logging.config import fileConfig
 import os
 import sys
@@ -9,8 +12,8 @@ from sqlalchemy.engine import URL
 
 from alembic import context
 
-# Add the src directory to the path so we can import our modules
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+# Add the backend directory to the path so we can import src.* modules
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -23,10 +26,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from settings.config import settings
-from domain_model.models.base import Base
 # Import all models so they are registered with Base.metadata
-from domain_model.models import Transaction
 
 target_metadata = Base.metadata
 
@@ -70,7 +70,7 @@ def run_migrations_online() -> None:
     """
     # Convert asyncpg URL to psycopg2 for sync migrations
     url = settings.DATABASE_URL.replace("postgresql+asyncpg", "postgresql")
-    
+
     connectable = engine_from_config(
         {"sqlalchemy.url": url},
         prefix="sqlalchemy.",

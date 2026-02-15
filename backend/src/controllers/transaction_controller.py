@@ -12,10 +12,7 @@ from src.domain_model.dtos.transaction_dtos import (
     TransactionUpdateDto,
     TransactionResponseDto
 )
-from src.domain_model.dtos.base_dtos import (
-    ApiResponseDto,
-    PaginatedResponseDto
-)
+from src.domain_model.dtos.base_dtos import ApiResponseDto, PaginatedResponseDto
 
 
 router = APIRouter(
