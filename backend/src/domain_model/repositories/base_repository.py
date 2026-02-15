@@ -30,10 +30,12 @@ class BaseRepository(Generic[ModelType]):
 
     async def get_all(
         self,
-        session: AsyncSession
+        session: AsyncSession,
+        skip: int = 0,
+        limit: int = 30
     ) -> List[ModelType]:
 
-        stmt = select(self.model)
+        stmt = select(self.model).offset(skip).limit(limit)
         result = await session.execute(stmt)
         return result.scalars().all()
 
