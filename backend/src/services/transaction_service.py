@@ -40,7 +40,7 @@ class TransactionService:
                     txn_date = dto.transaction_date
             else:
                 txn_date = date.today()
-            
+
             transaction = Transaction(
                 amount=dto.amount,
                 type=dto.type,

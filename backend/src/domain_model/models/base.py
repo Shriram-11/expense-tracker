@@ -14,8 +14,10 @@ Base = declarative_base()
 
 class BaseModel(Base):
     """Base model with common fields for all models."""
-    
+
     __abstract__ = True
-    
-    created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
-    updated_at = Column(DateTime(timezone=True), default=utc_now, onupdate=utc_now, nullable=False)
+
+    created_at = Column(DateTime(timezone=True),
+                        default=utc_now, nullable=False)
+    updated_at = Column(DateTime(timezone=True),
+                        default=utc_now, onupdate=utc_now, nullable=False)
