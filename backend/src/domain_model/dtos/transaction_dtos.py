@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from typing import Optional
-from datetime import datetime
+from typing import Optional, Union
+from datetime import datetime, date
 from decimal import Decimal
 from src.utils.constants import TransactionType, TransactionCategory
 
@@ -10,7 +10,7 @@ class TransactionBaseDto(BaseModel):
     type: TransactionType
     category: TransactionCategory
     description: Optional[str] = None
-    transaction_date: Optional[datetime] = None
+    transaction_date: Optional[Union[date, datetime]] = None
 
 
 class TransactionCreateDto(TransactionBaseDto):
@@ -22,7 +22,7 @@ class TransactionUpdateDto(BaseModel):
     type: Optional[TransactionType] = None
     category: Optional[TransactionCategory] = None
     description: Optional[str] = None
-    transaction_date: Optional[datetime] = None
+    transaction_date: Optional[Union[date, datetime]] = None
 
 
 class TransactionResponseDto(TransactionBaseDto):

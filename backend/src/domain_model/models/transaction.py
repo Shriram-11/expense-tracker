@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, Numeric, String, DateTime, Enum as SQLEnum
-from datetime import datetime
+from sqlalchemy import Column, Integer, Numeric, String, Date, Enum as SQLEnum
+from datetime import date
 from src.domain_model.models.base import BaseModel
 from src.utils.constants import TransactionType, TransactionCategory
 
@@ -15,10 +15,7 @@ class Transaction(BaseModel):
     category = Column(SQLEnum(TransactionCategory), nullable=False)
     description = Column(String(255), nullable=True)
     transaction_date = Column(
-        DateTime, default=datetime.utcnow, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow,
-                        onupdate=datetime.utcnow, nullable=False)
+        Date, default=date.today, nullable=False)
 
     def __repr__(self):
         return (

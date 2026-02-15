@@ -1,8 +1,9 @@
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, timezone
 from calendar import monthrange
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.domain_model.models.transaction import Transaction
+from src.domain_model.models.base import utc_now
 from src.domain_model.repositories.transaction_repository import TransactionRepository
 from src.domain_model.dtos.transaction_dtos import (
     TransactionCreateDto,
@@ -31,12 +32,21 @@ class TransactionService:
                     message="Amount must be greater than zero"
                 )
 
+            # Extract date from transaction_date (handles both datetime and date objects)
+            if dto.transaction_date:
+                if isinstance(dto.transaction_date, datetime):
+                    txn_date = dto.transaction_date.date()
+                else:
+                    txn_date = dto.transaction_date
+            else:
+                txn_date = date.today()
+            
             transaction = Transaction(
                 amount=dto.amount,
                 type=dto.type,
                 category=dto.category,
                 description=dto.description,
-                transaction_date=dto.transaction_date or datetime.utcnow()
+                transaction_date=txn_date
             )
 
             created = await self.repository.create(session, transaction)
@@ -137,6 +147,11 @@ class TransactionService:
                     success=False,
                     message="Amount must be greater than zero"
                 )
+
+            # Extract date from transaction_date if provided
+            if "transaction_date" in data and data["transaction_date"] is not None:
+                if isinstance(data["transaction_date"], datetime):
+                    data["transaction_date"] = data["transaction_date"].date()
 
             updated = await self.repository.update(
                 session=session,
